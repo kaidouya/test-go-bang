@@ -36,6 +36,7 @@ function Board({ children, onClik }, ref) {
   };
 
   const getBoardSize = useCallback(() => boardSize, [boardSize]);
+  const getBoardInstance = useCallback(() => _innerCanvas.current, []);
 
   useEffect(() => {
     draw();
@@ -43,7 +44,8 @@ function Board({ children, onClik }, ref) {
   }, []);
 
   useImperativeHandle(ref, () => ({
-    getBoardSize
+    getBoardSize,
+    getBoardInstance
   }));
 
   return (
