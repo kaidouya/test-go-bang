@@ -12,23 +12,26 @@ export default function Home() {
   const board = useRef(null);
   const [boardInstance, setBoardInstance] = useState(null);
   const { state, dispatch } = useContext(Store);
+  const currentRole = state.currentRole;
 
-  const onClick = useCallback((e) => {
-    const { getBoardSize } = board.current;
-    const boardSize = getBoardSize();
-    const { girdX, girdY } = getCellCoordinate(e, boardSize);
-    const { centerX, centerY } = getCellCenterPosition(girdX, girdY);
-    const cell = [girdX, girdY];
-    const currentRole = state.currentRole;
+  const onClick = useCallback(
+    (e) => {
+      const { getBoardSize } = board.current;
+      const boardSize = getBoardSize();
+      const { girdX, girdY } = getCellCoordinate(e, boardSize);
+      const { centerX, centerY } = getCellCenterPosition(girdX, girdY);
+      const cell = [girdX, girdY];
 
-    const play = {
-      centerX,
-      centerY,
-      cell,
-      currentRole
-    };
-    dispatch(updateGame(play));
-  }, []);
+      const play = {
+        centerX,
+        centerY,
+        cell,
+        currentRole
+      };
+      dispatch(updateGame(play));
+    },
+    [currentRole]
+  );
 
   useEffect(() => {
     setBoardInstance(board.current.getBoardInstance());
