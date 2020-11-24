@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components"
-import { Normalize } from "styled-normalize"
+import { createGlobalStyle } from "styled-components";
+import { Normalize } from "styled-normalize";
 
-const GlobalStyles = createGlobalStyle``
+const GlobalStyles = createGlobalStyle``;
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyles />
       <Component {...pageProps} />
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
