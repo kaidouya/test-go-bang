@@ -1,30 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 五子棋
 
-## Getting Started
+## 描述
 
-First, run the development server:
+五子棋是一種兩人對弈的純策略型棋類遊戲，通常雙方分別使用黑白兩色的棋子，輪流下在棋盤直線與橫線的交叉點上，先在橫線、直線或斜對角線上形成 5 子連線者獲勝。
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 基本需求
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 畫面顯示棋盤
+  - 棋盤大小為 15x15
+- 五子棋基礎規則
+  - 行棋：黑子先行，黑白雙方輪流落子於棋盤空點處。
+  - 勝負：先把五枚或以上己棋相連成任何橫縱斜方向為勝。（長連仍算勝利）
+- 遊戲進行中需顯示的介面
+  - 輪到黑或白子行棋的提示
+  - 總步數
+  - 遊戲時間
+- 重玩功能
+  - 遊戲途中，可以中斷遊戲並清空棋盤，開始一盤新遊戲
+- 再玩一局功能
+  - 勝負判定後，可以再玩一局遊戲
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 進階需求
 
-## Learn More
+- 響應式網頁設計 (RWD)
+  - 支援各種裝置/尺寸瀏覽
+- 悔棋
+  - 遊戲進行中可使用的功能
+  - 收回前一步的棋子，重新行棋
+- 棋譜紀錄
+  - 匯出
+    - 棋譜紀錄是此盤遊戲的數據，包含雙方棋子的行棋順序、位置。
+    - 每盤遊戲結束後，可匯出此盤遊戲的棋譜紀錄，匯出格式與方法不拘。
+  - 匯入
+    - 可匯入先前匯出的棋譜紀錄，匯入後，棋盤上會顯示所有棋子
+    - 在棋子上顯示此棋子的步數（提供可隱藏/顯示此數字的 UI 操作）
+- 復盤
+  - 遊戲結束後，或是匯入棋譜紀錄後，可以使用復盤功能。
+  - 復盤功能會使棋盤清空，然後按照本局或匯入的棋譜紀錄，接著可以透過上/下一步按鈕，一步步的還原本局遊戲過程。
+  - 支援自動行棋，開啟自動行棋後，會以每一秒下一步棋的速度，自動下完整盤棋。
 
-To learn more about Next.js, take a look at the following resources:
+## 開發條件
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 使用 React 開發，其他套件/工具自由選擇
+- 遵守前端團隊規範
+- 測驗時間 16 小時
