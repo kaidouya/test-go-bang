@@ -13,7 +13,6 @@ function getBoardArray() {
 }
 
 function changeRole(currentRole) {
-  console.log(currentRole);
   return currentRole === BLACK ? WHITE : BLACK;
 }
 
@@ -30,7 +29,9 @@ function reducer(state, action) {
     case UPDATE_GAME:
       const {
         cell: [x, y],
-        currentRole
+        currentRole,
+        centerX,
+        centerY
       } = payload;
 
       const currentGirdStatus = get(state, ["boardArray", `${x}`, `${y}`, "role"]);
@@ -44,7 +45,7 @@ function reducer(state, action) {
         boardArray: {
           [x]: {
             [y]: {
-              $merge: { role: currentRole }
+              $merge: { x: centerX, y: centerY, role: currentRole }
             }
           }
         }
