@@ -1,9 +1,9 @@
 import { useReducer } from "react";
-import { BLACK, WHITE } from "../config/setting";
-import { HOW_MANY_CELL_OF_ONE_LINE, EMPTY, GAME_STATUS_STOP, GAME_STATUS_START, GAME_STATUS_FINISH } from "../config/setting";
+import { BLACK, WHITE } from "../config";
+import { HOW_MANY_CELL_OF_ONE_LINE, EMPTY, GAME_STATUS_STOP, GAME_STATUS_START, GAME_STATUS_FINISH } from "../config";
 import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME } from "./constants";
 import update from "immutability-helper";
-import { get, set } from "lodash";
+import { get } from "lodash";
 
 function getBoardArray() {
   const point = HOW_MANY_CELL_OF_ONE_LINE + 1;

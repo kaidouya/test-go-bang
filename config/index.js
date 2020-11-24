@@ -17,16 +17,13 @@ export const BLACK = 1;
 export const WHITE = 2;
 export const EMPTY = 0;
 
-export const roleMap = {
+export const roleMaps = {
   [BLACK]: "黑棋",
   [WHITE]: "白棋"
 };
 
 /**
  * 遊戲狀態
- */
-/**
- * GAME STATUS
  */
 export const GAME_STATUS_STOP = 0;
 export const GAME_STATUS_START = 1;

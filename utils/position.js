@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "../config/setting";
+import { CELL_SIZE } from "../config";
 
 export function getCellCoordinate(event, rectInfo) {
   const { clientX, clientY } = event;

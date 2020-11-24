@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
-import { CHESS_SIZE, COLOR_GREY, COLOR_WHITE, COLOR_BLACK, EMPTY, BLACK } from "../../config/setting";
-import { Store } from "../../Store";
+import { CHESS_SIZE, COLOR_GREY, COLOR_WHITE, COLOR_BLACK, EMPTY, BLACK } from "../../config";
+import { Store } from "../../store";
 import { flatten, get } from "lodash";
 import shortid from "shortid";
 

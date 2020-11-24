@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { Normalize } from "styled-normalize";
-import { Store, useStore } from "../Store";
+import { Store, useStore } from "../store";
 
 const GlobalStyles = createGlobalStyle``;
 

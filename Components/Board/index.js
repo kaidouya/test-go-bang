@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef } from "react";
 import styled from "styled-components";
-import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE } from "../../config/setting";
+import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE } from "../../config";
 
 const Wrapper = styled.div`
   display: flex;
