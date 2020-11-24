@@ -9,3 +9,15 @@ export const COLOR_WHITE = "#FFFFFF";
 export const COLOR_GREY = "#C8C8C8";
 export const COLOR_GREEN = "#75E675";
 export const COLOR_BLUE = "#69AFF6";
+
+/**
+ * 遊戲角色
+ */
+export const BLACK = 1;
+export const WHITE = 2;
+export const EMPTY = 0;
+
+export const roleMap = {
+  [BLACK]: "黑棋",
+  [WHITE]: "白棋"
+};

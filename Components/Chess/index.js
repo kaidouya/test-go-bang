@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { CHESS_SIZE, COLOR_GREY, COLOR_WHITE, COLOR_BLACK } from "../../config/setting";
+import { flatten } from "lodash";
 
 const radius = CHESS_SIZE / 2;
 
