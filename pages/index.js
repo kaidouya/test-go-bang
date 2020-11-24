@@ -6,7 +6,7 @@ import Chess from "../components/Chess";
 import { TITLE_NAME, GAME_STATUS_FINISH, roleMaps } from "../config";
 import { getCellCoordinate, getCellCenterPosition, check } from "../utils";
 import { Store } from "../store";
-import { updateGame } from "../store/action";
+import { updateGame, updateStatus } from "../store/action";
 
 export default function Home() {
   const board = useRef(null);
@@ -47,6 +47,7 @@ export default function Home() {
   );
 
   const handleGameFinish = useCallback((role) => {
+    dispatch(updateStatus(GAME_STATUS_FINISH));
     setTimeout(() => alert(`${roleMaps[role]} win!`), 0);
   }, []);
 

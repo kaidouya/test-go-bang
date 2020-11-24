@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { BLACK, WHITE } from "../config";
-import { HOW_MANY_CELL_OF_ONE_LINE, EMPTY, GAME_STATUS_STOP, GAME_STATUS_START, GAME_STATUS_FINISH } from "../config";
+import { HOW_MANY_CELL_OF_ONE_LINE, EMPTY, GAME_STATUS_STOP, GAME_STATUS_FINISH } from "../config";
 import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME } from "./constants";
 import update from "immutability-helper";
 import { get } from "lodash";
@@ -20,7 +20,7 @@ const initState = {
   boardArray: getBoardArray(),
   prevRole: null,
   currentRole: BLACK,
-  winner: null
+  gameStatus: GAME_STATUS_STOP
 };
 
 function reducer(state, action) {
@@ -49,6 +49,10 @@ function reducer(state, action) {
             }
           }
         }
+      });
+    case UPDATE_STATUS:
+      return update(state, {
+        gameStatus: { $set: GAME_STATUS_FINISH }
       });
     default:
       return state;
