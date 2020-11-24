@@ -6,6 +6,7 @@ import Chess from "../Components/Chess";
 import { TITLE_NAME } from "../config/setting";
 import { getCellCoordinate, getCellCenterPosition } from "../utils/position";
 import { Store } from "../Store";
+import { updateGame } from '../Store/action'
 
 export default function Home() {
   const board = useRef(null);
@@ -18,12 +19,13 @@ export default function Home() {
     const { girdX, girdY } = getCellCoordinate(e, boardSize);
     const { centerX, centerY } = getCellCenterPosition(girdX, girdY);
     const cell = [girdX, girdY];
+
     const play = {
       centerX,
       centerY,
-      cell
+      cell,
     };
-    dispatch({ type: "put", payload: play });
+    dispatch(updateGame(play));
   }, []);
 
   useEffect(() => {

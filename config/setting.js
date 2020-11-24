@@ -21,3 +21,13 @@ export const roleMap = {
   [BLACK]: "黑棋",
   [WHITE]: "白棋"
 };
+
+/**
+ * 遊戲狀態
+ */
+/**
+ * GAME STATUS
+ */
+export const GAME_STATUS_STOP = 0;
+export const GAME_STATUS_START = 1;
+export const GAME_STATUS_FINISH = 2;
