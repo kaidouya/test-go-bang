@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef } from "react";
 import styled from "styled-components";
 import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE } from "../../config/setting";
 
@@ -14,11 +14,12 @@ const Canvas = styled.canvas`
   background-color: #c19b6c;
 `;
 
-export default function Board({ children, onClik, setBoardCancas }) {
-  const myCanvas = useRef(null);
+function Board({ children, onClik }, ref) {
+  const _innerCanvas = useRef(null);
+  const [boardSize, setBoardSize] = useState(null);
 
   const draw = () => {
-    const ctx = myCanvas.current?.getContext("2d");
+    const ctx = _innerCanvas.current?.getContext("2d");
     if (ctx) {
       const lines = HOW_MANY_CELL_OF_ONE_LINE + 1;
 
@@ -34,16 +35,21 @@ export default function Board({ children, onClik, setBoardCancas }) {
     }
   };
 
+  const getBoardSize = useCallback(() => boardSize, [boardSize]);
+
   useEffect(() => {
     draw();
-    if (myCanvas.current) {
-      setBoardCancas(myCanvas.current);
-    }
+    setBoardSize(_innerCanvas.current.getBoundingClientRect());
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    getBoardSize
+  }));
+
   return (
     <Wrapper>
       <Canvas
-        ref={myCanvas}
+        ref={_innerCanvas}
         width={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
         height={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
         onClick={onClik}
@@ -53,3 +59,5 @@ export default function Board({ children, onClik, setBoardCancas }) {
     </Wrapper>
   );
 }
+
+export default forwardRef(Board);
