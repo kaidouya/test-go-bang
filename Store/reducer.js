@@ -18,7 +18,6 @@ function changeRole(currentRole) {
 
 const initState = {
   boardArray: getBoardArray(),
-  prevRole: null,
   currentRole: BLACK,
   gameStatus: GAME_STATUS_STOP
 };
@@ -26,6 +25,12 @@ const initState = {
 function reducer(state, action) {
   const { type, payload } = action;
   switch (type) {
+    case NEW_GAME:
+      return update(state, {
+        boardArray: { $set: initState.boardArray },
+        currentRole: { $set: initState.currentRole },
+        gameStatus: { $set: initState.gameStatus }
+      });
     case UPDATE_GAME:
       const {
         cell: [x, y],
@@ -52,7 +57,7 @@ function reducer(state, action) {
       });
     case UPDATE_STATUS:
       return update(state, {
-        gameStatus: { $set: GAME_STATUS_FINISH }
+        gameStatus: { $set: payload }
       });
     default:
       return state;

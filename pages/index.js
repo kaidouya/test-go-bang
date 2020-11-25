@@ -3,10 +3,11 @@ import Head from "next/head";
 import H1 from "../components/H1";
 import Board from "../components/Board";
 import Chess from "../components/Chess";
-import { TITLE_NAME, GAME_STATUS_FINISH, roleMaps } from "../config";
+import Controller from "../components/controller";
+import { TITLE_NAME, GAME_STATUS_FINISH, GAME_STATUS_START, GAME_STATUS_STOP, roleMaps } from "../config";
 import { getCellCoordinate, getCellCenterPosition, check } from "../utils";
 import { Store } from "../store";
-import { updateGame, updateStatus } from "../store/action";
+import { updateGame, updateStatus, newGame, startGame } from "../store/action";
 
 export default function Home() {
   const board = useRef(null);
@@ -15,6 +16,10 @@ export default function Home() {
 
   const onClick = useCallback(
     (e) => {
+      if (state.gameStatus === GAME_STATUS_STOP || state.gameStatus === GAME_STATUS_FINISH) {
+        return;
+      }
+
       const { getBoardSize } = board.current;
       const boardSize = getBoardSize();
       const { girdX, girdY } = getCellCoordinate(e, boardSize);
@@ -35,7 +40,7 @@ export default function Home() {
         handleGameFinish(currentRole);
       }
     },
-    [state.currentRole]
+    [state.gameStatus, state.currentRole]
   );
 
   const checkGameOver = useCallback(
@@ -49,6 +54,16 @@ export default function Home() {
   const handleGameFinish = useCallback((role) => {
     dispatch(updateStatus(GAME_STATUS_FINISH));
     setTimeout(() => alert(`${roleMaps[role]} win!`), 0);
+  }, []);
+
+  const startGame = useCallback(() => {
+    if (state.gameStatus === GAME_STATUS_STOP) {
+      dispatch(updateStatus(GAME_STATUS_START));
+    }
+  }, [state.gameStatus]);
+
+  const resetGame = useCallback(() => {
+    dispatch(newGame());
   }, []);
 
   useEffect(() => {
@@ -65,6 +80,7 @@ export default function Home() {
       <Board onClik={onClick} ref={board}>
         <Chess boardInstance={boardInstance}></Chess>
       </Board>
+      <Controller status={state.gameStatus} startGame={startGame} resetGame={resetGame} />
     </>
   );
 }

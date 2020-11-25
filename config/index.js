@@ -28,3 +28,4 @@ export const roleMaps = {
 export const GAME_STATUS_STOP = 0;
 export const GAME_STATUS_START = 1;
 export const GAME_STATUS_FINISH = 2;
+export const GAME_STATUS_RESET = 4;

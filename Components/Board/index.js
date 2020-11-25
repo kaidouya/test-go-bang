@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef } from "react";
+import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef, useContext } from "react";
 import styled from "styled-components";
 import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE } from "../../config";
+import { Store } from "../../store";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,12 +18,12 @@ const Canvas = styled.canvas`
 function Board({ children, onClik }, ref) {
   const _innerCanvas = useRef(null);
   const [boardSize, setBoardSize] = useState(null);
+  const { state } = useContext(Store);
 
-  const draw = () => {
+  const draw = useCallback(() => {
     const ctx = _innerCanvas.current?.getContext("2d");
     if (ctx) {
       const lines = HOW_MANY_CELL_OF_ONE_LINE + 1;
-
       for (let i = 0; i < lines; i++) {
         ctx.moveTo(20 + i * CELL_SIZE, 20);
         ctx.lineTo(20 + i * CELL_SIZE, CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + 20);
@@ -33,10 +34,16 @@ function Board({ children, onClik }, ref) {
       }
       ctx.closePath();
     }
-  };
+  }, []);
 
   const getBoardSize = useCallback(() => boardSize, [boardSize]);
   const getBoardInstance = useCallback(() => _innerCanvas.current, []);
+
+  useEffect(() => {
+    if (gameStatus) const ctx = _innerCanvas.current?.getContext("2d");
+    ctx.clearRect(0, 0, _innerCanvas.current.width, _innerCanvas.current.height);
+    draw();
+  }, [state.gameStatus]);
 
   useEffect(() => {
     draw();
