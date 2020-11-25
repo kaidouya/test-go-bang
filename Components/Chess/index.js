@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { CHESS_SIZE, COLOR_GREY, COLOR_WHITE, COLOR_BLACK, EMPTY, BLACK } from "../../config";
 import { Store } from "../../store";
 import { flatten, get } from "lodash";
@@ -31,14 +31,14 @@ const ChessWrapper = ({ boardInstance }) => {
 
   return chessList.length > 0
     ? chessList.map((item) =>
-        Chess({
-          boardInstance,
-          x: get(item, "x"),
-          y: get(item, "y"),
-          role: get(item, "role"),
-          key: shortid.generate()
-        })
-      )
+      Chess({
+        boardInstance,
+        x: get(item, "x"),
+        y: get(item, "y"),
+        role: get(item, "role"),
+        key: shortid.generate()
+      })
+    )
     : null;
 };
 

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { StartButton, ResetButton } from "../Button";
 import { GAME_STATUS_STOP } from "../../config";
+import Timer from '../Timer';
+import Stepper from '../Stepper';
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,9 +16,10 @@ const Wrapper = styled.div`
 
 const Aside = ({ status, startGame, resetGame }) => (
   <Wrapper>
-    {/* <Elapsed status={status} /> */}
+    <Timer status={status} />
     <StartButton disable={status !== GAME_STATUS_STOP} onClick={startGame} />
     <ResetButton onClick={resetGame} />
+    <Stepper status={status} />
   </Wrapper>
 );
 

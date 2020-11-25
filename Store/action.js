@@ -1,4 +1,4 @@
-import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME } from "./constants";
+import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME, UPDATE_STEP } from "./constants";
 
 export const updateGame = (play) => ({
   type: UPDATE_GAME,
@@ -13,3 +13,9 @@ export const updateStatus = (status) => ({
 export const newGame = () => ({
   type: NEW_GAME
 });
+
+export const updateStep = (step) => ({
+  type: UPDATE_STEP,
+  payload: step,
+});
+

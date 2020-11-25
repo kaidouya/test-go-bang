@@ -1,13 +1,20 @@
-import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useImperativeHandle,
+  forwardRef,
+  useContext
+} from "react";
 import styled from "styled-components";
-import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE } from "../../config";
+import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE, GAME_STATUS_STOP } from "../../config";
 import { Store } from "../../store";
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
 `;
 
 const Canvas = styled.canvas`
@@ -22,6 +29,8 @@ function Board({ children, onClik }, ref) {
 
   const draw = useCallback(() => {
     const ctx = _innerCanvas.current?.getContext("2d");
+    ctx.beginPath();
+    ctx.strokeStyle = "#000000";
     if (ctx) {
       const lines = HOW_MANY_CELL_OF_ONE_LINE + 1;
       for (let i = 0; i < lines; i++) {
@@ -40,9 +49,11 @@ function Board({ children, onClik }, ref) {
   const getBoardInstance = useCallback(() => _innerCanvas.current, []);
 
   useEffect(() => {
-    const ctx = _innerCanvas.current?.getContext("2d");
-    ctx.clearRect(0, 0, _innerCanvas.current.width, _innerCanvas.current.height);
-    draw();
+    if (state.gameStatus === GAME_STATUS_STOP) {
+      const ctx = _innerCanvas.current?.getContext("2d");
+      ctx.clearRect(0, 0, _innerCanvas.current.width, _innerCanvas.current.height);
+      draw();
+    }
   }, [state.gameStatus]);
 
   useEffect(() => {
@@ -62,6 +73,7 @@ function Board({ children, onClik }, ref) {
         width={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
         height={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
         onClick={onClik}
+        style={{ cursor: "pointer" }}
       >
         {children}
       </Canvas>

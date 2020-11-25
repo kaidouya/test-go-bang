@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { BLACK, WHITE } from "../config";
 import { HOW_MANY_CELL_OF_ONE_LINE, EMPTY, GAME_STATUS_STOP, GAME_STATUS_FINISH } from "../config";
-import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME } from "./constants";
+import { UPDATE_GAME, UPDATE_STATUS, NEW_GAME, UPDATE_STEP } from "./constants";
 import update from "immutability-helper";
 import { get } from "lodash";
 
@@ -19,7 +19,8 @@ function changeRole(currentRole) {
 const initState = {
   boardArray: getBoardArray(),
   currentRole: BLACK,
-  gameStatus: GAME_STATUS_STOP
+  gameStatus: GAME_STATUS_STOP,
+  stepCounter: 0,
 };
 
 function reducer(state, action) {
@@ -29,7 +30,8 @@ function reducer(state, action) {
       return update(state, {
         boardArray: { $set: initState.boardArray },
         currentRole: { $set: initState.currentRole },
-        gameStatus: { $set: initState.gameStatus }
+        gameStatus: { $set: initState.gameStatus },
+        stepCounter: { $set: initState.stepCounter },
       });
     case UPDATE_GAME:
       const {
@@ -45,6 +47,7 @@ function reducer(state, action) {
         return state;
       }
       const newRole = changeRole(currentRole);
+
       return update(state, {
         currentRole: { $set: newRole },
         boardArray: {
@@ -58,6 +61,10 @@ function reducer(state, action) {
     case UPDATE_STATUS:
       return update(state, {
         gameStatus: { $set: payload }
+      });
+    case UPDATE_STEP:
+      return update(state, {
+        stepCounter: { $set: payload }
       });
     default:
       return state;

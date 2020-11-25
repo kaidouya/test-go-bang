@@ -1,3 +1,6 @@
+/**
+ * 基本設定
+ */
 export const TITLE_NAME = "五子棋訓練中心";
 
 export const HOW_MANY_CELL_OF_ONE_LINE = 15;

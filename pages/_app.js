@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { Normalize } from "styled-normalize";
 import { Store, useStore } from "../store";
+import "../style/antd.less";
 
 const GlobalStyles = createGlobalStyle``;
 

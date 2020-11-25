@@ -3,11 +3,19 @@ import Head from "next/head";
 import H1 from "../components/H1";
 import Board from "../components/Board";
 import Chess from "../components/Chess";
-import Controller from "../components/controller";
-import { TITLE_NAME, GAME_STATUS_FINISH, GAME_STATUS_START, GAME_STATUS_STOP, roleMaps } from "../config";
+import ControllerPanel from "../components/ControllerPanel";
+import {
+  TITLE_NAME,
+  GAME_STATUS_FINISH,
+  GAME_STATUS_START,
+  GAME_STATUS_STOP,
+  roleMaps
+} from "../config";
 import { getCellCoordinate, getCellCenterPosition, check } from "../utils";
 import { Store } from "../store";
-import { updateGame, updateStatus, newGame, startGame } from "../store/action";
+import { updateGame, updateStatus, newGame, updateStep } from "../store/action";
+import HomeWrapper from "../components/Wrapper";
+import { Modal } from "antd";
 
 export default function Home() {
   const board = useRef(null);
@@ -35,12 +43,14 @@ export default function Home() {
       };
 
       dispatch(updateGame(play));
+      dispatch(updateStep(++state.stepCounter));
 
       if (checkGameOver(currentRole, cell)) {
-        handleGameFinish(currentRole);
+        dispatch(updateStatus(GAME_STATUS_FINISH));
+        showInfo(currentRole);
       }
     },
-    [state.gameStatus, state.currentRole]
+    [state.gameStatus, state.currentRole, state.stepCounter]
   );
 
   const checkGameOver = useCallback(
@@ -51,11 +61,6 @@ export default function Home() {
     [state.boardArray]
   );
 
-  const handleGameFinish = useCallback((role) => {
-    dispatch(updateStatus(GAME_STATUS_FINISH));
-    setTimeout(() => alert(`${roleMaps[role]} win!`), 0);
-  }, []);
-
   const startGame = useCallback(() => {
     if (state.gameStatus === GAME_STATUS_STOP) {
       dispatch(updateStatus(GAME_STATUS_START));
@@ -64,6 +69,18 @@ export default function Home() {
 
   const resetGame = useCallback(() => {
     dispatch(newGame());
+  }, []);
+
+  const showInfo = useCallback((role) => {
+    Modal.info({
+      title: "這場遊戲已經結束了",
+      content: (
+        <div>
+          <p>贏的玩家就是{roleMaps[role]}</p>
+        </div>
+      ),
+      onOk() {}
+    });
   }, []);
 
   useEffect(() => {
@@ -76,11 +93,13 @@ export default function Home() {
         <title>{TITLE_NAME}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <H1>{TITLE_NAME}</H1>
-      <Board onClik={onClick} ref={board}>
-        <Chess boardInstance={boardInstance}></Chess>
-      </Board>
-      <Controller status={state.gameStatus} startGame={startGame} resetGame={resetGame} />
+      <H1 currentRole={state.currentRole} currentStatus={state.gameStatus} />
+      <HomeWrapper>
+        <Board onClik={onClick} ref={board}>
+          <Chess boardInstance={boardInstance}></Chess>
+        </Board>
+        <ControllerPanel status={state.gameStatus} startGame={startGame} resetGame={resetGame} />
+      </HomeWrapper>
     </>
   );
 }
