@@ -40,7 +40,7 @@ function Board({ children, onClik }, ref) {
   const getBoardInstance = useCallback(() => _innerCanvas.current, []);
 
   useEffect(() => {
-    if (gameStatus) const ctx = _innerCanvas.current?.getContext("2d");
+    const ctx = _innerCanvas.current?.getContext("2d");
     ctx.clearRect(0, 0, _innerCanvas.current.width, _innerCanvas.current.height);
     draw();
   }, [state.gameStatus]);
