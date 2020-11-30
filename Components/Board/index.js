@@ -1,14 +1,6 @@
-import {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  useImperativeHandle,
-  forwardRef,
-  useContext
-} from "react";
+import { useEffect, useState, useRef, useCallback, useImperativeHandle, forwardRef, useContext } from "react";
 import styled from "styled-components";
-import { CELL_SIZE, HOW_MANY_CELL_OF_ONE_LINE, GAME_STATUS_STOP } from "../../config";
+import { CELL_SIZE, GRID_AMOUNT, GAME_STATUS_STOP } from "../../config";
 import { Store } from "../../store";
 
 const Wrapper = styled.div`
@@ -32,13 +24,13 @@ function Board({ children, onClik }, ref) {
     ctx.beginPath();
     ctx.strokeStyle = "#000000";
     if (ctx) {
-      const lines = HOW_MANY_CELL_OF_ONE_LINE + 1;
+      const lines = GRID_AMOUNT + 1;
       for (let i = 0; i < lines; i++) {
         ctx.moveTo(20 + i * CELL_SIZE, 20);
-        ctx.lineTo(20 + i * CELL_SIZE, CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + 20);
+        ctx.lineTo(20 + i * CELL_SIZE, CELL_SIZE * GRID_AMOUNT + 20);
         ctx.stroke();
         ctx.moveTo(20, 20 + i * CELL_SIZE);
-        ctx.lineTo(CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + 20, 20 + i * CELL_SIZE);
+        ctx.lineTo(CELL_SIZE * GRID_AMOUNT + 20, 20 + i * CELL_SIZE);
         ctx.stroke();
       }
       ctx.closePath();
@@ -70,8 +62,8 @@ function Board({ children, onClik }, ref) {
     <Wrapper>
       <Canvas
         ref={_innerCanvas}
-        width={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
-        height={CELL_SIZE * HOW_MANY_CELL_OF_ONE_LINE + CELL_SIZE}
+        width={CELL_SIZE * GRID_AMOUNT + CELL_SIZE}
+        height={CELL_SIZE * GRID_AMOUNT + CELL_SIZE}
         onClick={onClik}
         style={{ cursor: "pointer" }}
       >

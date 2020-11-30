@@ -1,4 +1,4 @@
-import { HOW_MANY_CELL_OF_ONE_LINE, GAME_STATUS_START, GAME_STATUS_FINISH } from "../config";
+import { GRID_AMOUNT, GAME_STATUS_START, GAME_STATUS_FINISH } from "../config";
 import { get, values } from "lodash";
 
 const HORIZONTAL = "horizontal";
@@ -26,7 +26,7 @@ export const check = (role, x, y) => {
       counters[HORIZONTAL] += 1;
     }
 
-    for (let i = x + 1; i < HOW_MANY_CELL_OF_ONE_LINE; i++) {
+    for (let i = x + 1; i < GRID_AMOUNT; i++) {
       if (!isSameRole(get(boardArray, [i, y, "role"]), role)) {
         break;
       }
@@ -40,7 +40,7 @@ export const check = (role, x, y) => {
       counters[VERTICAL] += 1;
     }
 
-    for (let i = y + 1; i < HOW_MANY_CELL_OF_ONE_LINE; i++) {
+    for (let i = y + 1; i < GRID_AMOUNT; i++) {
       if (!isSameRole(get(boardArray, [x, i, "role"]), role)) {
         break;
       }
@@ -54,21 +54,21 @@ export const check = (role, x, y) => {
       counters[LEFT_DIAGONAL] += 1;
     }
 
-    for (let i = x + 1, j = y + 1; i < HOW_MANY_CELL_OF_ONE_LINE, j < HOW_MANY_CELL_OF_ONE_LINE; i++, j++) {
+    for (let i = x + 1, j = y + 1; i < GRID_AMOUNT, j < GRID_AMOUNT; i++, j++) {
       if (!isSameRole(get(boardArray, [i, j, "role"]), role)) {
         break;
       }
       counters[LEFT_DIAGONAL] += 1;
     }
 
-    for (let i = x + 1, j = y - 1; i < HOW_MANY_CELL_OF_ONE_LINE, j >= 0; i++, j--) {
+    for (let i = x + 1, j = y - 1; i < GRID_AMOUNT, j >= 0; i++, j--) {
       if (!isSameRole(get(boardArray, [i, j, "role"]), role)) {
         break;
       }
       counters[RIGHT_DIAGONAL] += 1;
     }
 
-    for (let i = x - 1, j = y + 1; i >= 0, j < HOW_MANY_CELL_OF_ONE_LINE; i--, j++) {
+    for (let i = x - 1, j = y + 1; i >= 0, j < GRID_AMOUNT; i--, j++) {
       if (!isSameRole(get(boardArray, [i, j, "role"]), role)) {
         break;
       }

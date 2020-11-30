@@ -31,14 +31,14 @@ const ChessWrapper = ({ boardInstance }) => {
 
   return chessList.length > 0
     ? chessList.map((item) =>
-      Chess({
-        boardInstance,
-        x: get(item, "x"),
-        y: get(item, "y"),
-        role: get(item, "role"),
-        key: shortid.generate()
-      })
-    )
+        Chess({
+          boardInstance,
+          x: get(item, "x"),
+          y: get(item, "y"),
+          role: get(item, "role"),
+          key: shortid.generate()
+        })
+      )
     : null;
 };
 

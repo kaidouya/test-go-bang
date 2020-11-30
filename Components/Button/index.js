@@ -11,7 +11,7 @@ const ButtonWrapper = styled(Button)`
 `;
 
 export const StartButton = ({ disable, onClick }) => (
-  <ButtonWrapper type="primary" disable={`${disable}`} onClick={onClick} danger>
+  <ButtonWrapper type="primary" disabled={disable} onClick={onClick} danger>
     Start Game
   </ButtonWrapper>
 );
